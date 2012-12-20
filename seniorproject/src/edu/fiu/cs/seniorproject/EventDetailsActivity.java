@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -51,7 +52,7 @@ public class EventDetailsActivity extends MapActivity {
 	Event eventToCalendar = null;
 	ArrayList<String> createdEventsList = new ArrayList<String>();
 	//Map<String, Long> createdEvents= new HashMap<String, Long>();
-	MbGuideDB eventDB  = new MbGuideDB(this);; 
+	MbGuideDB eventDB  = new MbGuideDB(this);
     
 	private Event currentEvent = null;
 	
@@ -213,9 +214,9 @@ public class EventDetailsActivity extends MapActivity {
 			}
 			
 			
-			TextView description = (TextView)findViewById(R.id.event_description);
+			WebView description = (WebView)findViewById(R.id.event_description);
 			if ( description != null ) {
-				description.setText(event.getDescription());
+				description.loadData( "<html><body>" + event.getDescription() + "</body></html>", "text/html", null);
 			}
 			
 			TextView time = (TextView)findViewById(R.id.event_time);

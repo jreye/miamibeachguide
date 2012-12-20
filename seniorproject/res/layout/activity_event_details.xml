@@ -30,8 +30,10 @@
 	            android:layout_width="0dp"
 	            android:layout_height="wrap_content"
 	            android:layout_marginLeft="10dp"
-	            android:textAppearance="?android:attr/textAppearanceMedium"
-	            android:layout_weight="0.6" />
+	            android:layout_weight="0.6"
+	            android:text="@string/events"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+
 	    </LinearLayout>
 	
 	    <TextView
@@ -64,13 +66,11 @@
 		        android:textStyle="italic" />
 	
 		</LinearLayout>
-		
-	    <TextView
+
+	    <WebView
 	        android:id="@+id/event_description"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginTop="20dp"
-	        android:text="@string/events" />
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" />
 	    
 	    <LinearLayout
 	        android:layout_width="match_parent"
