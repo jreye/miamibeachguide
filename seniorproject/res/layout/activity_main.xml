@@ -3,9 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/beach_big_bkg"
-    android:orientation="vertical"
-    android:stretchColumns="0,1" >
-
+    android:orientation="vertical">
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -20,29 +19,44 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
             android:gravity="center_vertical" >
-
+
             <TextView
                 android:id="@+id/my_toursImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:drawableTop="@drawable/tour_96"
+                android:drawableTop="@drawable/tour_icon"
+                android:fontFamily="Droid Sans"
                 android:gravity="center"
                 android:onClick="onShowToursClick"
                 android:text="@string/tours"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#00ff00"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:typeface="normal" />
+
             <TextView
                 android:id="@+id/mapImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:contentDescription="@string/location"
-                android:drawableTop="@drawable/map_96"
+                android:drawableTop="@drawable/map_icon"
+                android:fontFamily="Verdana"
                 android:gravity="center"
                 android:onClick="onShowGeoLocationClick"
+                android:shadowColor="#ff0000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1.5"
                 android:text="@string/location"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#00ff00"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:typeface="normal" />
+
         </TableRow>
 
         <TableRow
@@ -51,28 +65,39 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
             android:gravity="center_vertical" >
-
+
             <TextView
                 android:id="@+id/eventsImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:drawableTop="@drawable/events_96"
+                android:drawableTop="@drawable/events_icon"
+                android:fontFamily="Roboto"
                 android:gravity="center"
                 android:onClick="onShowEventsClick"
                 android:text="@string/events_tv"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#00ff00"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:typeface="normal" />
+
             <TextView
                 android:id="@+id/placesImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:drawableTop="@drawable/places_96"
+                android:drawableTop="@drawable/places_icon"
+                android:fontFamily="Droid Serif"
                 android:gravity="center"
                 android:onClick="onShowPlacesClick"
                 android:text="@string/places"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#00ff00"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:typeface="normal" />
+
         </TableRow>
 
         <TableRow
@@ -81,16 +106,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
             android:gravity="center_vertical" >
-
+
             <TextView
                 android:id="@+id/my_eventsImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:drawableTop="@drawable/red_calendar_96"
+                android:drawableTop="@drawable/red_calendar_icon"
                 android:gravity="center"
                 android:onClick="onShowMyEventsClick"
-                android:text="@string/my_events_tv2"
+                android:text="@string/my_events_tv"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
@@ -98,7 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:drawableTop="@drawable/my_places_96"
+                android:drawableTop="@drawable/my_places_icon"
                 android:gravity="center"
                 android:onClick="onShowMyPlacesClick"
                 android:text="@string/my_places"

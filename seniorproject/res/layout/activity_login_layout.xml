@@ -23,7 +23,7 @@
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="19dp"
-        android:drawableLeft="@drawable/facebook_icon_small"
+        android:drawableLeft="@drawable/facebook_dark_icon"
         android:gravity="left|center_vertical"
         android:onClick="onLoginFacebookButtonClick"
         android:text="@string/facebook_loginB" />
