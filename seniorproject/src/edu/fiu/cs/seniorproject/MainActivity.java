@@ -3,118 +3,95 @@ package edu.fiu.cs.seniorproject;
 
 
 import java.lang.ref.WeakReference;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.SQLException;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.format.DateFormat;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ImageView.ScaleType;
 import edu.fiu.cs.seniorproject.data.DateFilter;
 import edu.fiu.cs.seniorproject.data.Event;
-import edu.fiu.cs.seniorproject.data.EventCategoryFilter;
 import edu.fiu.cs.seniorproject.data.Location;
 import edu.fiu.cs.seniorproject.data.MbGuideDB;
-import edu.fiu.cs.seniorproject.data.Place;
-import edu.fiu.cs.seniorproject.data.PlaceCategoryFilter;
-import edu.fiu.cs.seniorproject.data.SourceType;
 import edu.fiu.cs.seniorproject.manager.AppLocationManager;
 import edu.fiu.cs.seniorproject.manager.DataManager;
 import edu.fiu.cs.seniorproject.manager.DataManager.ConcurrentEventListLoader;
+import edu.fiu.cs.seniorproject.manager.DataManager.IBitmapDownloaderListener;
 
 import edu.fiu.cs.seniorproject.utils.Logger;
-//import android.location.Location;
+
 public class MainActivity extends Activity {
 
 	MbGuideDB db;
-	private ArrayList<Integer> hotdList =  new ArrayList<Integer>();
-	private ArrayList<Integer> restdList =  new ArrayList<Integer>();	
-	private ArrayList<Bitmap> hotBmList =  new ArrayList<Bitmap>();
-	private ArrayList<Bitmap> restBmList =  new ArrayList<Bitmap>();
-	EventsActivity mAct;
-	List <Event>mEventListm;
+//	private ArrayList<Integer> hotdList =  new ArrayList<Integer>();
+//	private ArrayList<Integer> restdList =  new ArrayList<Integer>();	
+//	private ArrayList<Bitmap> hotBmList =  new ArrayList<Bitmap>();
+//	private ArrayList<Bitmap> restBmList =  new ArrayList<Bitmap>();
+//	EventsActivity mAct;
+//	List<Event> mEventListm;
 	
 	private EventLoader mEventLoader = null;
-	private PlacesLoader mPlacesLoader = null;
-	private List<Hashtable<String, String>> mEventList = null;
-	private List<Hashtable<String, String>> mPlaceList = null;
+	//private PlacesLoader mPlacesLoader = null;
+//	private List<Hashtable<String, String>> mEventList = null;
+	//private List<Hashtable<String, String>> mPlaceList = null;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); 
-        addBitmapss();
+//        addBitmapss();
         AppLocationManager.init(this);     
   
         mEventLoader = new EventLoader(this);
         if(mEventLoader != null)
         	mEventLoader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         
-        mPlacesLoader = new PlacesLoader(this);
-        if(mPlacesLoader != null)
-        	mPlacesLoader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);   
+//        mPlacesLoader = new PlacesLoader(this);
+//        if(mPlacesLoader != null)
+//        	mPlacesLoader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);   
 
-        db = new MbGuideDB(this);
-        try
-        {
-        	db.openDatabase();
-        	
-        	if(!db.isUserPrefSet())
-        	{
-        		  Intent intent = new Intent(this, PersonalizationActivity.class);
-        	      startActivity(intent);
-        	}
-        	db.closeDatabase();
-        }
-        catch(SQLException s)
-        {
-        	s.printStackTrace();
-        	
-        }      
+        // Disable personalization activity for now
+//        db = new MbGuideDB(this);
+//        try
+//        {
+//        	db.openDatabase();
+//        	
+//        	if(!db.isUserPrefSet())
+//        	{
+//        		  Intent intent = new Intent(this, PersonalizationActivity.class);
+//        	      startActivity(intent);
+//        	}
+//        	db.closeDatabase();
+//        }
+//        catch(SQLException s)
+//        {
+//        	s.printStackTrace();
+//        	
+//        }      
         
-    }
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-      super.onSaveInstanceState(savedInstanceState);
-      // Save UI state changes to the savedInstanceState.
-      // This bundle will be passed to onCreate if the process is
-      // killed and restarted.
-      savedInstanceState.putBoolean("MyBoolean", true);
-      savedInstanceState.putDouble("myDouble", 1.9);
-      savedInstanceState.putInt("MyInt", 1);
-      savedInstanceState.putString("MyString", "Welcome back to Android");
-  
-  
-  //    savedInstanceState.putParcelableArrayList("eventList", value);
-      
-      // etc.
     }
 
     @Override
     public void onDestroy() {
     	if ( this.mEventLoader != null && !this.mEventLoader.isCancelled() ) {
+    		this.mEventLoader.cancelLoader();
     		this.mEventLoader.cancel(true);
     		this.mEventLoader = null;
     	}
     	
-    	if ( this.mPlacesLoader != null && !this.mPlacesLoader.isCancelled() ) {
-    		this.mPlacesLoader.cancel(true);
-    		this.mPlacesLoader = null;
-    	}
+//    	if ( this.mPlacesLoader != null && !this.mPlacesLoader.isCancelled() ) {
+//    		this.mPlacesLoader.cancel(true);
+//    		this.mPlacesLoader = null;
+//    	}
     	super.onDestroy();
     }
     
@@ -143,8 +120,6 @@ public class MainActivity extends Activity {
     	Intent intent = new Intent(this, GeoLocationActivity.class);
     	this.startActivity(intent);
     }
-    
-    
     
     public void  onShowEventsClick(View view) {
     	Intent intent = new Intent(this, EventsActivity.class);
@@ -175,18 +150,21 @@ public class MainActivity extends Activity {
     	Intent intent = new Intent(this, MyPlacesActivity.class);
     	this.startActivity(intent);
     }
+    
     public void onShowMyEventsClick (View view) {
 
     	Intent intent = new Intent(this,MyEventsActivity.class); 
     	//Intent intent = new Intent(this,PersonalizationActivity.class); 
     	this.startActivity(intent);
-
     }
+    
     public void onItemClicked (View view) {
     	//Intent intent = new Intent(this,MyEventsActivity.class); 
     	Intent intent = new Intent(this,PersonalizationActivity.class); 
     	this.startActivity(intent);	
     }
+    
+    /*
     private List<Hashtable<String, String>> buildPlaceList( List<Place> places ) {
     	List<Hashtable<String, String>> placeList = new ArrayList<Hashtable<String,String>>(places.size());
 		
@@ -226,7 +204,7 @@ public class MainActivity extends Activity {
 		}
 		return placeList;
     }
-    
+    */
 /*    private ArrayList<Place> convertPlaceListToArrayList(List <Place> list)
     {
     	ArrayList<Place> plList = new ArrayList<Place>();
@@ -246,6 +224,7 @@ public class MainActivity extends Activity {
     	return plList;
     }*/
     
+    /*
     private void showPlaceList(List<Place> placeList)
     {
     	//pList = this.convertPlaceListToArrayList(placeList);
@@ -287,54 +266,66 @@ public class MainActivity extends Activity {
 				}
 		}
     }
+    */
     
     private void showEventList(List<Event> eventList)
     {    	
-    	 int size  = getHotelBitmapList().size();
-    	 if(eventList!=null && eventList.size()>0){ 
-    		
-    		this.mEventList = this.buildEventMap(eventList);
-        	 LayoutInflater inflater = (LayoutInflater)this.getLayoutInflater();
-        	 LinearLayout ly = (LinearLayout)findViewById(R.id.child_linear_layout2);
-        int mSize = 0;
-        int evSize = eventList.size();
-        if(evSize < size)
-        	mSize = evSize;
-        else
-        	mSize = 8;
-	    for(int i=0; i<mSize; i++)
-	    {
-	    	View v = (View)inflater.inflate(R.layout.image_box_linear, null);
-	    	ImageView iv =(ImageView) v.findViewById(R.id.image);
-	    	
-	    	final Hashtable<String, String> map = mEventList.get(i);
-	    	iv.setOnClickListener(new OnClickListener() {
-                public void onClick(View v) {               
-                	if ( map != null ) {
-    					Intent intent = new Intent(MainActivity.this, EventDetailsActivity.class);
-    					intent.putExtra("event_id", map.get("event_id"));
-    					intent.putExtra("source", SourceType.valueOf(map.get("source")));
-    					MainActivity.this.startActivity(intent);
-    				}                              
-                }
-            });
-	    	//TextView mtv = (TextView) v.findViewById(R.id.text);       	
-	    	
-	    	if(iv!=null){
-	    		if(restBmList!= null)
-	    			iv.setImageBitmap(getRestaurantBitmapList().get(i));
-	    		if(eventList!= null && iv != null)
-	    		{
-	    			 DataManager.getSingleton().downloadBitmap(eventList.get(i).getImage(),iv);
-	    			// mtv.setText(eventList.get(i).getName().substring(0, 6));	    			 
-	    		}	    	
-	    	}   
-	    	ly.addView(v, LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
-	    }
-	  }
+		if (eventList != null && eventList.size() > 0) {
+
+			//this.mEventList = this.buildEventMap(eventList);
+	
+			for (int i = 0; i < eventList.size(); i++) {
+				final Event event = eventList.get(i);
+				
+				if ( event != null && event.getImage() != null && !event.getImage().isEmpty() ) {
+					
+					DataManager.getSingleton().downloadBitmap(event.getImage(), new IBitmapDownloaderListener() {
+						
+						@Override
+						public void OnFail() {
+							Logger.Warning("Bitmap download failed. Event = " + event.toString());
+						}
+						
+						@Override
+						public void OnCompleted(Bitmap bm) {
+							if ( bm != null ) {
+								//LayoutInflater inflater = (LayoutInflater) MainActivity.this.getLayoutInflater();
+								LinearLayout ly = (LinearLayout) findViewById(R.id.today_events_container );
+								
+								//View v = (View) inflater.inflate(R.layout.image_box_linear,	null);
+								ImageView iv = new ImageView(MainActivity.this);// (ImageView) v.findViewById(R.id.image);
+				
+								if (iv != null) {						
+									
+									iv.setOnClickListener(new OnClickListener() {
+										public void onClick(View v) {
+											
+											Intent intent = new Intent(MainActivity.this,EventDetailsActivity.class);
+											intent.putExtra("event_id", event.getId() );
+											intent.putExtra("source", event.getSource() );
+											MainActivity.this.startActivity(intent);
+										}
+									});			
+									iv.setImageBitmap(bm);
+									iv.setPadding(10, 10, 10, 10);
+									iv.setScaleType(ScaleType.FIT_XY);
+									
+									int targetHeight = ly.getMeasuredHeight();
+									int targetWidth = (int)( (bm.getWidth() * targetHeight) / bm.getWidth() );
+									
+									ly.addView(iv, targetWidth, targetHeight);
+									ly.invalidate();
+								}								
+							}
+						}
+					});					
+					
+				}
+			}
+		}
     }
     
-    
+    /*
     public void addBitmapss()
 	{
 		 getHotelImages();
@@ -350,7 +341,9 @@ public class MainActivity extends Activity {
 		
 		}
 		
-	}
+	}*/
+    
+    /*
 	private void getHotelImages()
 	{	
 			hotdList.add(R.drawable.hot1);		
@@ -380,17 +373,19 @@ public class MainActivity extends Activity {
 		//restdList.add(R.drawable.rest10);
 		//restdList.add(R.drawable.rest11);
 		//restdList.add(R.drawable.rest12);			
-	}
+	}*/
 	
-	public ArrayList<Bitmap> getHotelBitmapList()
-	{
-		return hotBmList;
-	}
-	
-	public ArrayList<Bitmap> getRestaurantBitmapList()
-	{
-		return restBmList;
-	}
+//	public ArrayList<Bitmap> getHotelBitmapList()
+//	{
+//		return hotBmList;
+//	}
+//	
+//	public ArrayList<Bitmap> getRestaurantBitmapList()
+//	{
+//		return restBmList;
+//	}
+    
+    /*
 	 private List<Hashtable<String, String>> buildEventMap(List<Event> eventList ) {
 	    	List<Hashtable<String, String>> fillMaps = new ArrayList<Hashtable<String, String>>(eventList.size());
 			float[] distanceResults = new float[1];
@@ -431,30 +426,22 @@ public class MainActivity extends Activity {
 			}
 			return fillMaps;
 	    }
-
+*/
+	 
     private class EventLoader extends AsyncTask<Void, List<Event>, Integer> {
 
     	private final WeakReference<MainActivity> mActivityReference;
     	private ConcurrentEventListLoader mLoader = null;
     	
-    	
-    	// need to get real preferences 
-    	
-    	protected EventCategoryFilter mCategoryFilter = EventCategoryFilter.Arts_Crafts;//SettingsActivity.getDefaultEventsCategory(getApplicationContext());//EventCategoryFilter.NONE;
-    	protected DateFilter mDataFilter = DateFilter.NEXT_30_DAYS;
-    	protected String mSearchRadius =  String.valueOf(SettingsActivity.getDefaultSearchRadius(getApplicationContext()));//"10";	// one mile by default
-    	protected String mQuery = null;
-    	protected boolean useNextPage = false;
-    	
     	public EventLoader(MainActivity activity) {
     		mActivityReference = new WeakReference<MainActivity>(activity);
     	}
-//    	
-//    	public void cancelLoader() {
-//    		if ( mLoader != null ) {
-//    			mLoader.cancel();
-//    		}
-//    	}
+    	
+    	public void cancelLoader() {
+    		if ( mLoader != null ) {
+    			mLoader.cancel();
+    		}
+    	}
     	
     	@SuppressWarnings("unchecked")
 		@Override
@@ -464,10 +451,7 @@ public class MainActivity extends Activity {
 			
 			Integer total = 0;
 			
-			if(!this.useNextPage)
-				this.mLoader = DataManager.getSingleton().getConcurrentEventList(location, mCategoryFilter, mSearchRadius, mQuery, mDataFilter );
-			else
-				this.mLoader = DataManager.getSingleton().getConcurrentNextEventList();
+			this.mLoader = DataManager.getSingleton().getConcurrentEventList(location, null, "25", null, DateFilter.TODAY );
 			
 			if ( this.mLoader != null ) {
 				List<Event> iter = null;
@@ -510,6 +494,7 @@ public class MainActivity extends Activity {
 		}		
     }
     
+    /*
     private class PlacesLoader extends AsyncTask<Void, List<Place>, Integer>
     {
     	protected PlaceCategoryFilter mCategory = PlaceCategoryFilter.RESTAURANT_BARS;
@@ -549,7 +534,7 @@ public class MainActivity extends Activity {
     	Intent intent = new Intent(this, PlacesMapViewActivity.class);
 		MainActivity.this.startActivity(intent);
     }
-	
+	*/
 	
 }
 

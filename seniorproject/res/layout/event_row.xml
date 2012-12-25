@@ -2,18 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:padding="8dp" >
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="0dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
-        android:layout_weight="0.2"
         android:adjustViewBounds="true"
         android:contentDescription="@string/events"
-        android:maxHeight="200dp"
-        android:maxWidth="200dp"
         android:scaleType="fitStart"
         android:src="@drawable/main_icon" />
 
@@ -24,7 +22,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="6dp"
-        android:layout_weight="0.8"
+        android:layout_weight="1"
         android:orientation="vertical" >
 
         <TextView
@@ -39,30 +37,26 @@
             android:id="@+id/event_place"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:text="@string/events" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/event_time"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/events"
-                android:textStyle="italic" />
-
-            <TextView
-                android:id="@+id/event_distance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="@string/events"
-                android:textColor="#f00"
-                android:textStyle="italic" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/event_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/events"
+            android:textStyle="italic" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/event_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:drawableTop="@drawable/red_pointer_icon"
+        android:text="@string/events"
+        android:textColor="#f00"
+        android:textStyle="italic" />
 
 </LinearLayout>
