@@ -9,6 +9,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.NumberPicker;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public abstract class FilterActivity extends Activity {
 	
@@ -87,6 +90,33 @@ public abstract class FilterActivity extends Activity {
 				setFilterVisible(false);
 			}
 		});
+        
+        final TextView searchRadiusText = (TextView)findViewById(R.id.SearchRadiusValue);
+        SeekBar bar = (SeekBar)findViewById(R.id.searchRadiusPicker);
+        if ( bar != null ) {
+        	bar.setProgress( SettingsActivity.getDefaultSearchRadius(this) );
+        	if ( searchRadiusText != null ) {
+				searchRadiusText.setText(" " + SettingsActivity.getDefaultSearchRadius(this) );
+			}
+        	
+        	bar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+				
+				@Override
+				public void onStopTrackingTouch(SeekBar seekBar) {
+				}
+				
+				@Override
+				public void onStartTrackingTouch(SeekBar seekBar) {
+				}
+				
+				@Override
+				public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
+					if ( searchRadiusText != null ) {
+						searchRadiusText.setText(" " + progress );
+					}
+				}
+			});
+        }
 	}
 	
 	protected void setFilterVisible(boolean visible) {
@@ -109,6 +139,11 @@ public abstract class FilterActivity extends Activity {
 		if ( picker != null ) {
 			picker.setVisibility(visibility);
 		}
+		
+		SeekBar bar = (SeekBar)findViewById(R.id.searchRadiusPicker);
+        if ( bar != null ) {
+        	bar.setVisibility(visibility);
+        }
 	}
 	
 	protected boolean isFilterExpanded() {
@@ -119,4 +154,9 @@ public abstract class FilterActivity extends Activity {
     	Intent intent = new Intent(this, SettingsActivity.class);
     	this.startActivity(intent);
     } 
+	
+	protected String getSearchRadiusStr() {
+		 TextView searchRadiusText = (TextView)findViewById(R.id.SearchRadiusValue);
+		 return searchRadiusText != null ? String.valueOf( searchRadiusText.getText() ) : "5";
+	}
 }

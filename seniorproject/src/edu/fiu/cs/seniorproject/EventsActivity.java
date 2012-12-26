@@ -21,7 +21,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.NumberPicker;
 import android.widget.SearchView;
 
 import android.widget.SearchView.OnQueryTextListener;
@@ -317,11 +316,7 @@ public class EventsActivity extends FilterActivity {
 	    		mEventLoader.mDataFilter = DateFilter.getValueAtIndex( spinner.getSelectedItemPosition() );
 	    	}
 	    	
-	    	NumberPicker picker = (NumberPicker)findViewById(R.id.radius_picker);
-	    	if ( picker != null ) {
-	    		mEventLoader.mSearchRadius = String.valueOf( picker.getValue() );
-	    	}
-	    	
+	    	mEventLoader.mSearchRadius = this.getSearchRadiusStr();	    	
     	}
     }
     

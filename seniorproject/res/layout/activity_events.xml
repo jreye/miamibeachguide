@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:paddingBottom="20dp" >
 
     <ListView
 	        android:id="@android:id/list"
@@ -22,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:indeterminate="true" />
-
+
     <LinearLayout
         android:id="@+id/filter_form"
         android:layout_width="match_parent"
@@ -90,13 +91,46 @@
                     android:text="@string/search_radius"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
-                <NumberPicker
-                    android:id="@+id/radius_picker"
-                    android:layout_width="50dp"
-                    android:layout_margin="10dp"
-                    android:layout_height="wrap_content" />
-            </TableRow>           
-        </TableLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/SearchRadiusValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/miles"
+                        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                    <TextView
+                        android:id="@+id/milesTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:text="@string/miles"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="16dp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+            </TableRow>
+        </TableLayout>
+
+        <SeekBar
+            android:id="@+id/searchRadiusPicker"
+            android:layout_width="match_parent"
+            android:layout_height="85dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/scrubber_scale"
+            android:max="39"
+            android:paddingBottom="14dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:progress="5"
+            android:progressDrawable="@drawable/scrubber_progress_horizontal"
+            android:thumb="@drawable/scrubber_thumb" />
+
         <Button
             android:id="@+id/filter_ok"
             android:layout_width="wrap_content"
@@ -107,7 +141,6 @@
             android:drawablePadding="5dp"
             android:onClick="onFilterClick"
             android:text="@string/menu_search" />
-        
     </LinearLayout>
     
 </RelativeLayout>

@@ -28,7 +28,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.SimpleAdapter;
@@ -282,10 +281,7 @@ public class PlacesActivity extends FilterActivity {
 	    		mPlacesLoader.mCategory = PlaceCategoryFilter.getValueAtIndex( spinner.getSelectedItemPosition() );
 	    	}
 
-	    	NumberPicker picker = (NumberPicker)findViewById(R.id.radius_picker);
-	    	if ( picker != null ) {
-	    		mPlacesLoader.mSearchRadius = String.valueOf( picker.getValue() );
-	    	}
+	    	mPlacesLoader.mSearchRadius = this.getSearchRadiusStr();
 	    	mPlacesLoader.mQuery = null;
     	}
     }

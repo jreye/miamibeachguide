@@ -100,4 +100,5 @@
 	<string name="recomended_events">Recomended Events</string>
 	<string name="recomended_places">Recomended Places</string>
 	<string name="today_events">Today Events</string>
+	<string name="miles">Miles</string>
 </resources>
