@@ -49,7 +49,8 @@ public class EventsActivity extends FilterActivity {
 	private final OnItemClickListener mClickListener = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			if ( !EventsActivity.this.isFilterExpanded() && mEventList != null && mEventList.size() > position ) {
+			if ( mEventList != null && mEventList.size() > position ) {
+				EventsActivity.this.hideFilters();
 				Hashtable<String, String> map = mEventList.get(position);
 				
 				if ( map != null ) {

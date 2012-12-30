@@ -6,12 +6,6 @@
           android:showAsAction="ifRoom|collapseActionView"
           android:actionViewClass="android.widget.SearchView" />
     
-    <item android:id="@+id/expand_collapse"
-        android:title="@string/events"
-        android:icon="@drawable/navigation_expand_dark"
-        android:orderInCategory="10"
-        android:showAsAction="always" />
-    
     <item android:id="@+id/map_menuitem" 
           android:title="Events Map"
           android:showAsAction="ifRoom" />

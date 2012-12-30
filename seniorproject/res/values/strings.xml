@@ -102,4 +102,5 @@
 	<string name="today_events">Today Events</string>
 	<string name="miles">Miles</string>
 	<string name="miami_beach_api">Miami Beach API</string>
+	<string name="filters">Filters</string>
 </resources>

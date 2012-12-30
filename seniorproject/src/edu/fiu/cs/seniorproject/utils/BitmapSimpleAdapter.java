@@ -52,6 +52,12 @@ public class BitmapSimpleAdapter extends SimpleAdapter {
 					@SuppressWarnings("unchecked")
 					Hashtable<String, String> entry = (Hashtable<String, String>)item;
 					
+					if ( entry != null && !entry.containsKey("image") && entry.containsKey("latitude") && entry.containsKey("longitude") ) {
+						String latitude = entry.get("latitude");
+						String longitude = entry.get("longitude");
+						entry.put("image", String.format("http://maps.googleapis.com/maps/api/streetview?size=100x100&location=%1$s,%2$s&sensor=true", latitude, longitude));
+					}
+					
 					if ( entry != null && entry.containsKey("image") && entry.containsKey("id") ) {
 					
 						String id = (String)entry.get("id");

@@ -220,7 +220,7 @@ public class EventDetailsActivity extends MapActivity {
 			if ( description != null ) {
 				String descriptionStr = event.getDescription();
 				
-				if ( descriptionStr != null && !descriptionStr.isEmpty() && !descriptionStr.equals("null") ) {
+				if ( descriptionStr != null && !descriptionStr.isEmpty() && !descriptionStr.equals("null") && !descriptionStr.trim().isEmpty() ) {
 					findViewById(R.id.description_frame).setVisibility(View.VISIBLE);
 					description.loadData( "<html><body>" + descriptionStr + "</body></html>", "text/html", null);
 				}
@@ -235,14 +235,18 @@ public class EventDetailsActivity extends MapActivity {
                 
 			}
 			 
-			if ( event.getImage() != null && !event.getImage().isEmpty() ) {
-				ImageView image = (ImageView)findViewById(R.id.image);
-				if ( image != null ) {
+			Location location = event.getLocation();
+			
+			ImageView image = (ImageView)findViewById(R.id.image);
+			if ( image != null ) {
+				if ( event.getImage() != null && !event.getImage().isEmpty() ) {
 					DataManager.getSingleton().downloadBitmap(event.getImage(), image);
-				}
+				} else if ( location != null ) {
+					String streetViewImage = String.format("http://maps.googleapis.com/maps/api/streetview?size=100x100&location=%1$s,%2$s&sensor=true", location.getLatitude(), location.getLongitude());
+					DataManager.getSingleton().downloadBitmap(streetViewImage, image);
+				}			
 			}
 			
-			Location location = event.getLocation();
 			if ( location != null ) {
 				TextView place = (TextView)findViewById(R.id.event_place);
 				if ( place != null ) {
