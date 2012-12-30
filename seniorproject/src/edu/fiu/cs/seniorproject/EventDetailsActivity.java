@@ -206,6 +206,8 @@ public class EventDetailsActivity extends MapActivity {
 	public void showEvent(Event event) {
 		
 		if ( event != null ) {
+			findViewById(R.id.progress).setVisibility(View.GONE);
+			findViewById(R.id.scrollView).setVisibility(View.VISIBLE);
 			eventToCalendar = event;
 			this.currentEvent = event;
 			TextView name = (TextView)findViewById(R.id.event_name);
@@ -216,7 +218,15 @@ public class EventDetailsActivity extends MapActivity {
 			
 			WebView description = (WebView)findViewById(R.id.event_description);
 			if ( description != null ) {
-				description.loadData( "<html><body>" + event.getDescription() + "</body></html>", "text/html", null);
+				String descriptionStr = event.getDescription();
+				
+				if ( descriptionStr != null && !descriptionStr.isEmpty() && !descriptionStr.equals("null") ) {
+					findViewById(R.id.description_frame).setVisibility(View.VISIBLE);
+					description.loadData( "<html><body>" + descriptionStr + "</body></html>", "text/html", null);
+				}
+				else {
+					findViewById(R.id.description_frame).setVisibility(View.GONE);
+				}
 			}
 			
 			TextView time = (TextView)findViewById(R.id.event_time);
