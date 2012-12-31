@@ -1,31 +1,37 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_settings"
-        android:title="@string/menu_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
     
     <item android:id="@+id/add_to_calendar"
         android:orderInCategory="100"
-        android:title="@string/add_to_calendar"        
-        android:showAsAction="never" />
+        android:title="@string/add_to_calendar"     
+        android:icon="@android:drawable/ic_menu_add"
+        android:showAsAction="ifRoom" />
         
     <item android:id="@+id/delete_from_calendar"
         android:orderInCategory="100"
-        android:title="@string/delete_from_calendar"        
-        android:showAsAction="never" />
+        android:title="@string/delete_from_calendar"  
+        android:icon="@android:drawable/ic_menu_delete"      
+        android:showAsAction="ifRoom" />
     
-    <item android:id="@+id/invite_friends"
-        android:orderInCategory="100"
-        android:title="@string/invite"        
-        android:showAsAction="never" />
-    
-    <item android:id="@+id/share"
+     <item android:id="@+id/share"
         android:orderInCategory="100"
         android:title="@string/share"        
-        android:showAsAction="never" />
+        android:icon="@android:drawable/ic_menu_share" 
+        android:showAsAction="ifRoom" />
+     
+    <item android:id="@+id/invite_friends"
+        android:orderInCategory="100"
+        android:title="@string/invite"  
+        android:showAsAction="never" />       
     
     <item android:id="@+id/post_tweet"
         android:orderInCategory="100"
-        android:title="@string/post_tweet"        
-        android:showAsAction="never" />
+        android:title="@string/post_tweet"  
+        android:icon="@android:drawable/ic_menu_send"       
+        android:showAsAction="ifRoom" />
+    
+    <item android:id="@+id/menu_settings"
+        android:title="@string/menu_settings"
+        android:orderInCategory="100"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:showAsAction="ifRoom" />
 </menu>

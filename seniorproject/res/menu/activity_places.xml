@@ -8,7 +8,8 @@
           android:actionViewClass="android.widget.SearchView" />
     
     <item android:id="@+id/map_menuitem"
-          android:title="Places Map"
+          android:title="@string/map"
+          android:icon="@android:drawable/ic_menu_mapmode"
           android:showAsAction="ifRoom" />
     
    <item android:id="@+id/menu_settings"

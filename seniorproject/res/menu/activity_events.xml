@@ -8,6 +8,7 @@
     
     <item android:id="@+id/map_menuitem" 
           android:title="Events Map"
+          android:icon="@android:drawable/ic_menu_mapmode"
           android:showAsAction="ifRoom" />
     
     <item android:id="@+id/menu_settings"

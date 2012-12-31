@@ -50,7 +50,6 @@ public class PlacesActivity extends FilterActivity {
 			if ( mPlaceList != null && mPlaceList.size() > position ) 
 			{
 				Hashtable<String, String> map = mPlaceList.get(position);
-				
 				if ( map != null && map.containsKey("id") && map.containsKey("source")) 
 				{
 					Intent intent = new Intent(PlacesActivity.this, PlaceDetailsActivity.class);

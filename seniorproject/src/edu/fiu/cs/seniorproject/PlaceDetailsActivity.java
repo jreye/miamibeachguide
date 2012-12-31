@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -183,6 +184,9 @@ public class PlaceDetailsActivity extends MapActivity {
 	public void showPlace(Place place) {
 
 		if (place != null) {
+			findViewById(android.R.id.progress).setVisibility(View.GONE);
+			findViewById(R.id.scrollView).setVisibility(View.VISIBLE);
+			
 			this.currentPlace = place;
 			// create place name.
 			TextView name = (TextView) findViewById(R.id.place_name);
@@ -190,29 +194,32 @@ public class PlaceDetailsActivity extends MapActivity {
 				name.setText(place.getName());
 			}
 
-			// create PLACE description.
-			TextView description = (TextView) findViewById(R.id.place_description);
-			if (description != null) {
-				String descStr = place.getDescription();
+			WebView description = (WebView)findViewById(R.id.place_description);
+			if ( description != null ) {
+				String descriptionStr = place.getDescription();
 				
-				if ( descStr != null && !descStr.isEmpty() && !descStr.equals("null") ) {
-					description.setText(descStr);
-				} else {
-					description.setVisibility(View.GONE);
+				if ( descriptionStr != null && !descriptionStr.isEmpty() && !descriptionStr.equals("null") && !descriptionStr.trim().isEmpty() ) {
+					findViewById(R.id.description_frame).setVisibility(View.VISIBLE);
+					description.loadData( "<html><body>" + descriptionStr + "</body></html>", "text/html", null);
 				}
-			}
-
-			if (place.getImage() != null && !place.getImage().isEmpty()) {
-				// place image
-				ImageView image = (ImageView) findViewById(R.id.place_image);
-				if (image != null) {
-					DataManager.getSingleton().downloadBitmap(place.getImage(),
-							image);
+				else {
+					findViewById(R.id.description_frame).setVisibility(View.GONE);
 				}
-			}
+			}			
 
 			// place location
 			Location location = place.getLocation();
+			
+			ImageView image = (ImageView) findViewById(R.id.place_image);
+			if (image != null) {
+				if (place.getImage() != null && !place.getImage().isEmpty()) {
+					DataManager.getSingleton().downloadBitmap(place.getImage(),image);
+				} else {
+					String streetViewImage = String.format("http://maps.googleapis.com/maps/api/streetview?size=100x100&location=%1$s,%2$s&sensor=true", location.getLatitude(), location.getLongitude());
+					DataManager.getSingleton().downloadBitmap(streetViewImage, image);
+				}				
+			}
+			
 			if (location != null) {
 				TextView placeLocation = (TextView) findViewById(R.id.place_location);
 				if (placeLocation != null) {
@@ -285,11 +292,13 @@ public class PlaceDetailsActivity extends MapActivity {
 		TextView tv = (TextView) findViewById(android.R.id.empty);
 		if (eventList != null && eventList.size() > 0) {
 
+			tv.setVisibility(View.VISIBLE);
 			tv.setText(R.string.events);
 			//tv.setVisibility(View.GONE);
 			LinearLayout ll = (LinearLayout) findViewById(android.R.id.list);
 
 			if (ll != null) {
+				ll.setVisibility(View.VISIBLE);
 				for (int i = 0; i < eventList.size(); i++) {
 					Event event = eventList.get(i);
 					tv = new TextView(this);
@@ -314,7 +323,7 @@ public class PlaceDetailsActivity extends MapActivity {
 				}
 			}
 		} else {
-			tv.setVisibility(View.VISIBLE);
+			findViewById(android.R.id.list).setVisibility(View.GONE);
 		}
 	}// end showEventList
 

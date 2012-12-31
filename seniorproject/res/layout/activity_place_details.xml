@@ -1,132 +1,194 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@drawable/varadero_bkg" >
 
-	<LinearLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_margin="5dp"
-	    android:orientation="vertical" >
-	    
-	    <LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_margin="5dp"
-	        android:orientation="horizontal" >
-	        
-	        <ImageView
-	            android:id="@+id/place_image"
-	            android:layout_width="0dp"
-	            android:layout_height="120dp"
-	            android:layout_weight="0.4"
-	            android:contentDescription="@string/place_image"
-	            android:maxHeight="120dp"
-	            android:scaleType="fitStart"
-	            android:src="@drawable/main_icon" />
-	        
-	        <TextView
-	            android:id="@+id/place_name"
-	            android:layout_width="0dp"
-	            android:layout_height="wrap_content"
-	            android:layout_marginLeft="10dp"
-	            android:textAppearance="?android:attr/textAppearanceMedium"
-	            android:layout_weight="0.6" />
-	    </LinearLayout>
-	
-	    <TextView
-	        android:id="@+id/place_location"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginTop="20dp"
-	        android:text="@string/events" />
-	    
-	    <LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginTop="10dp" >
-		   
-		    
-		    <TextView
-		        android:id="@+id/place_distance"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_marginRight="10dp"
-		        android:text="@string/places"
-		        android:textColor="#f00"
-		        android:textStyle="italic" />
-	
-		</LinearLayout>
-		
-	    <TextView
-	        android:id="@+id/place_description"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginTop="20dp"
-	        android:text="@string/places" />
-	    
-	     <LinearLayout
-	         android:id="@android:id/list"
-	         android:layout_width="match_parent"
-	         android:layout_height="wrap_content"
-	         android:layout_marginTop="10dp"
-	         android:orientation="vertical"
-	         android:paddingBottom="10dp" >
-		    
-		    <TextView
-		        android:id="@android:id/empty"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_marginRight="10dp"
-		        android:text="@string/empty_events"
-		        android:textColor="#f00"
-		        android:textStyle="italic" />
-	
-		</LinearLayout>
-	    
-	    <LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginBottom="2dp"
-	        android:layout_marginLeft="6dp"
-	        android:layout_marginRight="6dp"
-	        android:orientation="horizontal" >
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:visibility="gone" >
 
-	        <Button
-	            android:id="@+id/directions"
-	            style="?android:attr/buttonStyleSmall"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:onClick="onDirectionsClick"
-	            android:text="@string/directions" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="vertical" >
 
-	        <Button
-	            android:id="@+id/navigation"
-	            style="?android:attr/buttonStyleSmall"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:onClick="onNavigationClick"
-	            android:text="@string/navigation" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/panel_bg_white"
+                android:orientation="vertical" >
 
-	        <Button
-	            android:id="@+id/checkin"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:onClick="onCheckIn"
-	            android:text="@string/checkin" />
-		    
-		</LinearLayout>
-		
-	    <com.google.android.maps.MapView
-	        xmlns:android="http://schemas.android.com/apk/res/android"
-	        android:id="@+id/mapview"
-	        android:layout_width="match_parent"
-	        android:layout_height="200dp"
-	        android:layout_margin="8dp"        
-	        android:apiKey="@string/map_api_key"
-	        android:clickable="false" />
-	    
-	    
-	   
-	</LinearLayout>
-</ScrollView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginTop="6dp"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:id="@+id/place_image"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_weight="0.4"
+                        android:contentDescription="@string/place_image"
+                        android:maxHeight="120dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/main_icon" />
+
+                    <TextView
+                        android:id="@+id/place_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="0.6"
+                        android:text="@string/my_places"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="22dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/place_location"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:maxLines="3"
+                        android:text="@string/events"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/place_distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:drawableTop="@drawable/red_pointer_icon"
+                        android:text="@string/places"
+                        android:textColor="#f00"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/description_frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/panel_bg_white" >
+
+                <WebView
+                    android:id="@+id/place_description"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/panel_bg_white" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@android:id/list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/panel_bg_white"
+                android:orientation="vertical"
+                android:paddingBottom="10dp" >
+
+                <TextView
+                    android:id="@android:id/empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/empty_events"
+                    android:textColor="#f00"
+                    android:textStyle="italic" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/panel_bg_white"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/directions"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onDirectionsClick"
+                        android:text="@string/directions" />
+
+                    <Button
+                        android:id="@+id/navigation"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onNavigationClick"
+                        android:text="@string/navigation" />
+
+                    <Button
+                        android:id="@+id/checkin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onCheckIn"
+                        android:text="@string/checkin" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:foreground="@drawable/white_corner" >
+
+                    <com.google.android.maps.MapView
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/mapview"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:apiKey="@string/map_api_key"
+                        android:clickable="false" >
+                    </com.google.android.maps.MapView>
+
+                </FrameLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@android:id/progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+</RelativeLayout>
